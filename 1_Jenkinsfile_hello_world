@@ -57,6 +57,19 @@ A series of steps can be defined within a stage block. These steps are carried o
 ==================================================================
 */
 
+/*
+
+Kubernetes plugin for Jenkins
+
+It is a Jenkins plugin to run dynamic agents in a Kubernetes cluster.
+
+The plugin creates a Kubernetes Pod for each agent started, defined by the Docker image to run, and stops it after each build.
+
+Agents are launched using JNLP, so it is expected that the image connects automatically to the Jenkins master. For that some environment variables are automatically injected:
+
+*/
+
+
 
 def mylabel = "worker-${UUID.randomUUID().toString()}"
 
