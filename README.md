@@ -20,6 +20,7 @@ ERROR: Cloud does not exist: kubernetes
 plugin:
 Google Kubernetes Engine
 Kubernetes Continuous Deploy
+Kubernetes :: Pipeline :: DevOps Steps
 
 4)
 
