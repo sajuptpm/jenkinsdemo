@@ -35,9 +35,7 @@ pipeline {
 
   stages {
 
-    stage('Start') {
-      
-    }//stage
+
     
   }//stages
 
