@@ -1,4 +1,63 @@
 
+/*
+The simple answer is, Agent is for declarative pipelines and node is for scripted pipelines.
+
+In declarative pipelines the agent directive is used for specifying which agent/slave the job/task is to be executed on. This directive only allows you to specify where the task is to be executed, which agent, slave, label or docker image.
+
+On the other hand, in scripted pipelines the node step can be used for executing a script/step on a specific agent, label, slave. The node step optionally takes the agent or label name and then a closure with code that is to be executed on that node.
+
+scripted pipelines is the fallback for advanced requirements.
+==================================================================
+*/
+
+/*
+ Agent
+
+An agent is a directive that can run multiple builds with only one instance of Jenkins. This feature helps to distribute the workload to different agents and execute several projects within a single Jenkins instance. It instructs Jenkins to allocate an executor for the builds.
+
+A single agent can be specified for an entire pipeline or specific agents can be allotted to execute each stage within a pipeline. Few of the parameters used with agents are:
+
+    Any
+
+Runs the pipeline/ stage on any available agent.
+
+    None
+
+This parameter is applied at the root of the pipeline and it indicates that there is no global agent for the entire pipeline and each stage must specify its own agent.
+
+    Label
+
+Executes the pipeline/stage on the labelled agent.
+
+    Docker
+
+This parameter uses docker container as an execution environment for the pipeline or a specific stage. In the below example I’m using docker to pull an ubuntu image. This image can now be used as an execution environment to run multiple commands.
+
+pipeline {
+  agent {
+    docker {
+      image: "ubuntu"
+    }
+  }
+}
+
+==================================================================
+*/
+
+/*
+
+    Stages
+
+This block contains all the work that needs to be carried out. The work is specified in the form of stages. There can be more than one stage within this directive. Each stage performs a specific task.
+
+    Steps
+
+A series of steps can be defined within a stage block. These steps are carried out in sequence to execute a stage. There must be at least one step within a steps directive.
+
+==================================================================
+*/
+
+
 def mylabel = "worker-${UUID.randomUUID().toString()}"
 
 pipeline {
