@@ -1,0 +1,56 @@
+
+def mylabel = "worker-${UUID.randomUUID().toString()}"
+
+pipeline {
+
+  environment {
+    GIT_CRED_ID = 'my-git-cred-id'
+  }
+
+  agent {
+    kubernetes {
+      label mylabel
+      defaultContainer 'kubectl'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        labels:
+          component: ci
+        spec:
+          containers:
+          - name: ubuntu
+            #image: gcr.io/cloud-builders/kubectl
+            image: marketplace.gcr.io/google/ubuntu1804
+            command:
+            - cat
+            tty: true
+            resources:
+              limits:
+                cpu: 100m
+                memory: 600Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+      """
+    }
+  }
+
+  stages {
+
+        stage('start') {
+
+          steps {
+            
+            git(
+              url: 'https://gitlab.com/sajuptpm/jenkinsdemo.git',
+              credentialsId: "${GIT_CRED_ID}",
+              branch: "master"
+            )
+            
+          }//end steps
+          
+        }//end stage
+  }//end stages
+
+}//end pipeline      

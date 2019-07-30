@@ -1,0 +1,62 @@
+
+def mylabel = "worker-${UUID.randomUUID().toString()}"
+
+pipeline {
+
+  parameters {
+      choice(name: 'MYCHOICE', choices: ['None', 'Option1', 'Option2'], description: 'Pick something')
+      string(name: 'NAME', defaultValue: '', description: 'Enter Name')
+  }
+
+
+  agent {
+    kubernetes {
+      label mylabel
+      defaultContainer 'kubectl'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        labels:
+          component: ci
+        spec:
+          containers:
+          - name: ubuntu
+            #image: gcr.io/cloud-builders/kubectl
+            image: marketplace.gcr.io/google/ubuntu1804
+            command:
+            - cat
+            tty: true
+            resources:
+              limits:
+                cpu: 100m
+                memory: 600Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+      """
+    }
+  }
+
+  stages {
+
+        stage('start') {
+
+          steps {
+            
+              script {
+                  if (params.NAME){
+                    sh """
+                      echo '===NAME is : ${params.NAME}'
+                    """
+                  }else{
+                    sh "echo '===Name is empty==='"
+                  }
+              }
+            
+          }//end steps
+          
+        }//end stage
+  }//end stages
+
+}//end pipeline      

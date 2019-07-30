@@ -1,0 +1,51 @@
+
+def mylabel = "worker-${UUID.randomUUID().toString()}"
+
+pipeline {
+
+  agent {
+    kubernetes {
+      label mylabel
+      defaultContainer 'kubectl'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        labels:
+          component: ci
+        spec:
+          containers:
+          - name: ubuntu
+            #image: gcr.io/cloud-builders/kubectl
+            image: marketplace.gcr.io/google/ubuntu1804
+            command:
+            - cat
+            tty: true
+            resources:
+              limits:
+                cpu: 100m
+                memory: 600Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+      """
+    }
+  }
+
+  stages {
+
+        stage('start') {
+
+          steps {
+            
+            script {
+              CMD_OUT = sh ( script: 'ls', returnStdout: true)
+            }
+            sh "echo '===CMD_OUT is : ${CMD_OUT}' "
+            
+          }//end steps
+          
+        }//end stage
+  }//end stages
+
+}//end pipeline      
