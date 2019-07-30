@@ -14,11 +14,10 @@ pipeline {
         labels:
           component: ci
         spec:
-          # Use service account that can deploy to all namespaces
           containers:
-          - name: kubectl
-            image: gcr.io/cloud-builders/kubectl
-            #image: marketplace.gcr.io/google/ubuntu1804
+          - name: ubuntu
+            #image: gcr.io/cloud-builders/kubectl
+            image: marketplace.gcr.io/google/ubuntu1804
             command:
             - cat
             tty: true
@@ -41,9 +40,9 @@ pipeline {
             
             sh "echo '======Hello World========' "
             
-          }//steps
+          }//end steps
           
-        }//stage
-  }//stages
+        }//end stage
+  }//end stages
 
 }//end pipeline      

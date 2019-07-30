@@ -54,10 +54,15 @@ spec:
   ) {
 
   node(label) {
+
     stage('checkout source code from gitlab') {
+
       container('buildimage') {
-          sh "ls" 
-          }
-    } 
-   }
-  }
+
+            sh "echo '======Hello World========' "
+
+          }//end container
+
+    }//end stage 
+  }//end node
+}//end podTemplate
