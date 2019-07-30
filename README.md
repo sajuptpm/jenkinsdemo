@@ -9,8 +9,16 @@ plugin
 Kubernetes :: Pipeline :: Kubernetes Steps
 
 2)
+Error:
 WorkflowScript: 38: Expected one of "steps", "stages", or "parallel" for stage "Start" @ line 38, column 5.
        stage('Start') {
-       
-       
+
+3)
+Error:
+ERROR: Cloud does not exist: kubernetes
+
+
+
+4)
+
   
