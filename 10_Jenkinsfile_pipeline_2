@@ -58,11 +58,30 @@ spec:
     stage('Stage-1') {
 
       container('buildimage') {
-
-            sh "echo '======Hello World========' "
-            
+            sh "echo '======In Stage-1========' "
           }//end container
 
-    }//end stage 
+    }//end stage
+
+
+    stage('Stage-2') {
+
+      container('dind') {
+            sh "echo '======In Stage-2========' "
+          }//end container
+
+    }//end stage
+
+
+    stage('Stage-3') {
+
+      container('jnlp') {
+            sh "echo '======In Stage-3========' "
+          }//end container
+
+    }//end stage
+
+
+
   }//end node
 }//end podTemplate
