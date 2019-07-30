@@ -17,7 +17,9 @@ WorkflowScript: 38: Expected one of "steps", "stages", or "parallel" for stage "
 Error:
 ERROR: Cloud does not exist: kubernetes
 
-
+plugin:
+Google Kubernetes Engine
+Kubernetes Continuous Deploy
 
 4)
 
