@@ -35,8 +35,15 @@ pipeline {
 
   stages {
 
+        stage('start') {
 
-    
+          steps {
+            
+            sh "echo '======Hello World========' "
+            
+          }//steps
+          
+        }//stage
   }//stages
 
 }//end pipeline      
